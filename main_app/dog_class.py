@@ -6,7 +6,7 @@ class Dog:  # Note that parens are optional if not inheriting from another class
     self.age = age
 
 dogs = [
-  Dog('Lolo', 'tabby', 'foul little demon', 3),
-  Dog('Sachi', 'tortoise shell', 'diluted tortoise shell', 0),
-  Dog('Raven', 'black tripod', '3 legged cat', 4)
+  Dog('Phoebe', 'Boston Terrier', 'devious tongue-demon', 3),
+  Dog('Lucy', 'Boston Mix', 'the original sweet lick', 7),
+  Dog('Champ', 'Golden Retriever', 'childhood friend', 0)
 ]
