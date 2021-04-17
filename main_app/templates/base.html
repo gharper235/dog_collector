@@ -20,13 +20,13 @@
   <body>
     <header class="navbar-fixed">
       <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper blue lighten-2">
           <ul>
             <li>
               <a href="/" class="left brand-logo">&nbsp;&nbsp;DogCollector</a>
             </li>
           </ul>
-          <ul class="right">
+          <ul class="right hide-on-med-and-down">
             <li><a href="{% url 'about' %}">About</a></li>
             <li><a href="{% url 'dogs_create' %}">Add a Dog</a></li>
             <li><a href="{% url 'index' %}">View All My Dogs</a></li>
@@ -35,7 +35,7 @@
       </nav>
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
-    <footer class="page-footer">
+    <footer class="page-footer blue lighten-2">
       <div class="right">
         All Rights Reserved, &copy; 2021 Dog Collector &nbsp;
       </div>
