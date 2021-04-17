@@ -18,5 +18,36 @@
     <a href="{% url 'dogs_delete' dog.id %}">Delete</a>
   </div>
 </div>
-
+<div class="col s6">
+  <form action="{% url 'add_walking' dog.id %}" method="post">
+    {% csrf_token %}
+    {{ walking_form.as_p }}
+    <input type="submit" class="btn" value="Add Walking">
+  </form>
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Potty</th></tr>
+      </thead>
+      <tbody>
+        {% for walking in dog.walking_set.all %}
+          <tr>
+            <td>{{walking.date}}</td>
+            <td>{{walking.get_potty_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  var dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+  var selectEl = document.getElementById('id_potty');
+  M.FormSelect.init(selectEl);
+</script>
 {% endblock %}
