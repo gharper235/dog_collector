@@ -30,7 +30,6 @@ def dogs_detail(request, dog_id):
 
 def add_walking(request, dog_id):
     form = WalkingForm(request.POST)
-    print(form.errors)
     if form.is_valid():
         new_walking = form.save(commit=False)
         new_walking.dog_id = dog_id
