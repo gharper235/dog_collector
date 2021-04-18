@@ -5,4 +5,4 @@ from .models import Walking
 class WalkingForm(ModelForm):
     class Meta:
         model = Walking
-        fields = ['date', 'potty']
+        fields = ['date', 'time', 'potty']

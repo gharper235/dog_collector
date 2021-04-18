@@ -25,6 +25,7 @@ class Dog(models.Model):
 
 class Walking(models.Model):
     date = models.DateField('walk date')
+    time = models.TimeField(auto_now=False, auto_now_add=False,)
     potty = models.CharField(
         max_length=1,
         choices=POTTY,

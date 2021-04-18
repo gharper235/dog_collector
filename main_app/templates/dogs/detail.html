@@ -26,12 +26,13 @@
   </form>
     <table class="striped">
       <thead>
-        <tr><th>Date</th><th>Potty</th></tr>
+        <tr><th>Date</th><th>Time</th><th>Potty</th></tr>
       </thead>
       <tbody>
         {% for walking in dog.walking_set.all %}
           <tr>
             <td>{{walking.date}}</td>
+            <td>{{walking.time}}</td>
             <td>{{walking.get_potty_display}}</td>
           </tr>
         {% endfor %}
@@ -49,5 +50,12 @@
   });
   var selectEl = document.getElementById('id_potty');
   M.FormSelect.init(selectEl);
+
+  var timeEl = document.getElementById('id_time');
+  M.Timepicker.init(timeEl, {
+    defaultTime: 'now',
+    twelveHour: false,
+  });
+
 </script>
 {% endblock %}
