@@ -12,3 +12,56 @@ footer {
   padding-top: 0;
   text-align: right;
 }
+
+.datepicker-date-display {
+  background-color: #f6646c;
+}
+
+.datepicker-day-button:focus {
+  color: white !important;
+  background-color: #f6646c;
+}
+
+.datepicker-done,
+.datepicker-cancel,
+.select-dropdown li > span,
+.is-today {
+  color: #f6646c !important;
+}
+
+td.is-selected,
+.month-prev:active,
+.month-prev:focus,
+.month-next:active,
+.month-next:focus {
+  background-color: #f6646c !important;
+}
+
+td.is-selected.is-today {
+  color: white !important;
+}
+
+.timepicker-digital-display {
+  background-color: #f6646c;
+}
+
+.timepicker-close {
+  color: #f6646c;
+}
+
+.timepicker-canvas-bg,
+.timepicker-canvas-bearing {
+  fill: #f6646c !important;
+}
+
+.timepicker-canvas line {
+  stroke: #f6646c;
+}
+
+.timepicker-tick:hover {
+  background-color: #f6646c;
+}
+
+.btn {
+  background-color: #64b5f6;
+}

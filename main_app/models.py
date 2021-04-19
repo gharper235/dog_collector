@@ -3,10 +3,10 @@ from django.urls import reverse
 
 # Create your models here.
 POTTY = (
-    ('0', 'No Potty'),
+    ('0', 'N/A'),
     ('1', 'Pee'),
     ('2', 'Poo'),
-    ('3', 'Pee + Poo')
+    ('3', 'Both')
 )
 
 
