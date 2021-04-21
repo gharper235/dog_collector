@@ -9,19 +9,28 @@ POTTY = (
     ('3', 'Both')
 )
 
+FOOD = (
+    ('0', 'N/A'),
+    ('1', 'Treat'),
+    ('2', 'Meal')
+)
+
 
 class Food(models.Model):
     name = models.CharField(max_length=50)
-    color = models.CharField(max_length=20)
+    flavor = models.CharField(max_length=50, null=True)
+    description = models.TextField(max_length=250, null=True)
+    food_type = models.CharField(
+        max_length=1,
+        choices=FOOD,
+        default=FOOD[0][0]
+    )
 
     def __str__(self):
-        return f'{self.name} {self.color}'
+        return self.name
 
     def get_absolute_url(self):
         return reverse('food_detail', kwargs={'food_id': self.id})
-
-        class Meta:
-            ordering = ['-date']
 
 
 class Dog(models.Model):
@@ -29,6 +38,7 @@ class Dog(models.Model):
     breed = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     age = models.IntegerField()
+    foods = models.ManyToManyField(Food)
 
     def __str__(self):
         return self.name
