@@ -12,4 +12,14 @@ urlpatterns = [
     path('dogs/<int:dog_id>/add_walking/',
          views.add_walking, name='add_walking'),
 
+    # associate a toy with a cat (M:M)
+    path('dogs/<int:dog_id>/assoc_food/<int:food_id>/',
+         views.assoc_food, name='assoc_food'),
+
+    # # food urls
+    # path('foods/', views.foods_index, name='all_foods'),
+    # path('foods/<int:food_id>/', views.food_detail, name='food_detail'),
+    # path('foods/create/', views.Create_Food.as_view(), name='create_food'),
+    # path('foods/<int:pk>/update/', views.Update_food.as_view(), name='update_food'),
+    # path('foods/<int:pk>/delete/', views.Delete_food.as_view(), name='delete_food'),
 ]

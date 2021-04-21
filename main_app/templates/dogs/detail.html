@@ -49,8 +49,8 @@
     <div class="card">
      <div class="card-content">
       <span class="card-title">
-       <span style={{ food.name }}
-       </span>
+              {{ food.name }} - {{ food.flavor }}
+            </span>
     </div>
  </div>
  {% endfor %}
@@ -58,7 +58,28 @@
  <h5>No Food, Bad Owner!!! :(</h5>{% endif %}
 </div>
 <!-- Available foods will come after this line -->
-</div>
+  <div class="col s6">
+    <h3>Available Foods</h3>
+    {% if foods.count %}
+      {% for food in foods.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              {{ food.name }} - {{ food.flavor }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_food' dog.id food.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{dog.name}} Already Has All Food Available</h5>
+    {% endif %}
+  </div>
 <script>
   var dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {

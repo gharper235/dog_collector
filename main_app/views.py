@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Dog
+from .models import Dog, Food
 from .forms import WalkingForm
 
 # Create your views here.
@@ -24,8 +24,10 @@ def dogs_index(request):
 
 def dogs_detail(request, dog_id):
     dog = Dog.objects.get(id=dog_id)
+    foods_dog_doesnt_have = Food.objects.exclude(
+        id__in=dog.foods.all().values_list('id'))
     walking_form = WalkingForm()
-    return render(request, 'dogs/detail.html', {'dog': dog, 'walking_form': walking_form})
+    return render(request, 'dogs/detail.html', {'dog': dog, 'walking_form': walking_form, 'foods': foods_dog_doesnt_have})
 
 
 def add_walking(request, dog_id):
@@ -51,3 +53,9 @@ class DogUpdate(UpdateView):
 class DogDelete(DeleteView):
     model = Dog
     success_url = '/dogs/'
+
+
+def assoc_food(request, dog_id, food_id):
+    # Note that you can pass a food's id instead of the whole object
+    Dog.objects.get(id=dog_id).foods.add(food_id)
+    return redirect('detail', dog_id=dog_id)
