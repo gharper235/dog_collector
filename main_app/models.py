@@ -20,7 +20,7 @@ class Food(models.Model):
     name = models.CharField(max_length=50)
     flavor = models.CharField(max_length=50, null=True)
     description = models.TextField(max_length=250, null=True)
-    food_type = models.CharField(
+    food = models.CharField(
         max_length=1,
         choices=FOOD,
         default=FOOD[0][0]
