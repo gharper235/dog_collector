@@ -12,18 +12,14 @@ POTTY = (
 
 class Food(models.Model):
     name = models.CharField(max_length=50)
-    color = models.CharField(max_length=20)
+    flavor = models.CharField(max_length=50, null=True)
+    description = models.TextField(max_length=250, null=True)
 
-    # Other goodness such as 'def __str__():' below
     def __str__(self):
-        return f'{self.name} {self.color}'
+        return self.name
 
-    # Add this method
     def get_absolute_url(self):
         return reverse('food_detail', kwargs={'food_id': self.id})
-
-        class Meta:
-            ordering = ['-date']
 
 
 class Dog(models.Model):
@@ -31,6 +27,7 @@ class Dog(models.Model):
     breed = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     age = models.IntegerField()
+    foods = models.ManyToManyField(Food)
 
     def __str__(self):
         return self.name
