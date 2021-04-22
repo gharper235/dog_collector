@@ -9,22 +9,11 @@ POTTY = (
     ('3', 'Both')
 )
 
-FOOD = (
-    ('0', 'N/A'),
-    ('1', 'Treat'),
-    ('2', 'Meal')
-)
-
 
 class Food(models.Model):
     name = models.CharField(max_length=50)
     flavor = models.CharField(max_length=50, null=True)
     description = models.TextField(max_length=250, null=True)
-    food = models.CharField(
-        max_length=1,
-        choices=FOOD,
-        default=FOOD[0][0]
-    )
 
     def __str__(self):
         return self.name

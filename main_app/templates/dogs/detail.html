@@ -52,6 +52,12 @@
               {{ food.name }} - {{ food.flavor }}
             </span>
     </div>
+    <div class="card-action">
+    <form action="{% url 'remove_food' dog.id food.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn">Remove</button>
+    </form>
+  </div>
  </div>
  {% endfor %}
  {% else %}

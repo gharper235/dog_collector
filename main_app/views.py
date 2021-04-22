@@ -54,6 +54,44 @@ class DogDelete(DeleteView):
     model = Dog
     success_url = '/dogs/'
 
+# Food views
+
+
+def foods_index(request):
+    foods = Food.objects.all()
+    context = {
+        'foods': foods
+    }
+    return render(request, 'foods/index.html', context)
+
+
+def food_detail(request, food_id):
+    food = Food.objects.get(id=food_id)
+    context = {
+        'food': food
+    }
+    return render(request, 'foods/detail.html', context)
+
+
+class Create_Food(CreateView):
+    model = Food
+    fields = '__all__'
+
+
+class Update_food(UpdateView):
+    model = Food
+    fields = ['flavor', 'description']
+
+
+class Delete_food(DeleteView):
+    model = Food
+    success_url = '/foods/'
+
+
+def remove_food(request, dog_id, food_id):
+    Dog.objects.get(id=dog_id).foods.remove(food_id)
+    return redirect('detail', dog_id=dog_id)
+
 
 def assoc_food(request, dog_id, food_id):
     # Note that you can pass a food's id instead of the whole object
