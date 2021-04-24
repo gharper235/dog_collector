@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 import boto3
 from .models import Dog, Food, Photo
@@ -25,11 +27,13 @@ def about(request):
     return render(request, 'about.html')
 
 
+@login_required
 def dogs_index(request):
-    dogs = Dog.objects.all()
+    dogs = Dog.objects.filter(user=request.user)
     return render(request, 'dogs/index.html', {'dogs': dogs})
 
 
+@login_required
 def dogs_detail(request, dog_id):
     dog = Dog.objects.get(id=dog_id)
     foods_dog_doesnt_have = Food.objects.exclude(
@@ -38,6 +42,7 @@ def dogs_detail(request, dog_id):
     return render(request, 'dogs/detail.html', {'dog': dog, 'walking_form': walking_form, 'foods': foods_dog_doesnt_have})
 
 
+@login_required
 def add_walking(request, dog_id):
     form = WalkingForm(request.POST)
     if form.is_valid():
@@ -47,7 +52,7 @@ def add_walking(request, dog_id):
     return redirect('detail', dog_id=dog_id)
 
 
-class DogCreate(CreateView):
+class DogCreate(LoginRequiredMixin, CreateView):
     model = Dog
     fields = ['name', 'breed', 'description', 'age']
 
@@ -58,19 +63,20 @@ class DogCreate(CreateView):
         return super().form_valid(form)
 
 
-class DogUpdate(UpdateView):
+class DogUpdate(LoginRequiredMixin, UpdateView):
     model = Dog
     # Disallow the renaming of a dog by excluding the name field!
     fields = ['breed', 'description', 'age']
 
 
-class DogDelete(DeleteView):
+class DogDelete(LoginRequiredMixin, DeleteView):
     model = Dog
     success_url = '/dogs/'
 
 # Food views
 
 
+@login_required
 def foods_index(request):
     foods = Food.objects.all()
     context = {
@@ -79,6 +85,7 @@ def foods_index(request):
     return render(request, 'foods/index.html', context)
 
 
+@login_required
 def food_detail(request, food_id):
     food = Food.objects.get(id=food_id)
     context = {
@@ -87,32 +94,35 @@ def food_detail(request, food_id):
     return render(request, 'foods/detail.html', context)
 
 
-class Create_Food(CreateView):
+class Create_Food(LoginRequiredMixin, CreateView):
     model = Food
     fields = '__all__'
 
 
-class Update_food(UpdateView):
+class Update_food(LoginRequiredMixin, UpdateView):
     model = Food
     fields = ['flavor', 'description']
 
 
-class Delete_food(DeleteView):
+class Delete_food(LoginRequiredMixin, DeleteView):
     model = Food
     success_url = '/foods/'
 
 
+@login_required
 def remove_food(request, dog_id, food_id):
     Dog.objects.get(id=dog_id).foods.remove(food_id)
     return redirect('detail', dog_id=dog_id)
 
 
+@login_required
 def assoc_food(request, dog_id, food_id):
     # Note that you can pass a food's id instead of the whole object
     Dog.objects.get(id=dog_id).foods.add(food_id)
     return redirect('detail', dog_id=dog_id)
 
 
+@login_required
 def add_photo(request, dog_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
