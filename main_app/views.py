@@ -6,9 +6,11 @@ import boto3
 from .models import Dog, Food, Photo
 from .forms import WalkingForm
 
+from decouple import config
+
 # Add these "constants" below the imports
-S3_BASE_URL = 'https://s3-us-east-2.amazonaws.com/'
-BUCKET = 'ghcatcollector'
+S3_BASE_URL = config('S3_BASE_URL')
+BUCKET = config('BUCKET')
 
 # Define the home view
 
@@ -45,7 +47,7 @@ def add_walking(request, dog_id):
 
 class DogCreate(CreateView):
     model = Dog
-    fields = '__all__'
+    fields = ['name', 'breed', 'description', 'age']
 
 
 class DogUpdate(UpdateView):
