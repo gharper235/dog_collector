@@ -26,4 +26,7 @@ urlpatterns = [
     path('foods/<int:pk>/delete/', views.Delete_food.as_view(), name='delete_food'),
     path('dogs/<int:dog_id>/add_photo/', views.add_photo, name='add_photo'),
 
+    # signup urls
+    path('accounts/signup/', views.signup, name='signup'),
+
 ]
