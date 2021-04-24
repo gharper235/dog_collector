@@ -1,0 +1,1 @@
+web: gunicorn dog_collector.wsgi
